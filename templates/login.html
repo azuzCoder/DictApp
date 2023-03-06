@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block style %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login/login.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="center">
+      <h1>Login</h1>
+      <form method="post"> {% csrf_token %}
+        <div class="txt_field">
+          <input type="text" name="username" required>
+          <span></span>
+          <label>Username</label>
+        </div>
+        <div class="txt_field">
+          <input type="password" name="password" required>
+          <span></span>
+          <label>Password</label>
+        </div>
+        <div class="pass"><a class="pass" href="{% url 'users:password-reset' %}">Forgot Password?</a></div>
+        <input type="submit" value="Login">
+        <div class="signup_link">
+          Not a member? <a href="{% url 'users:register' %}">Signup</a>
+        </div>
+      </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block style %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login/login.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="center">
+      <h1>Register</h1>
+      <form action="{% url 'users:register' %}" method="post"> {% csrf_token %}
+        <div class="txt_field">
+          <input type="text" name="username" required>
+          <span></span>
+          <label>Username</label>
+        </div>
+        <div class="txt_field">
+          <input type="text" name="email" required>
+          <span></span>
+          <label>Email</label>
+        </div>
+        <div class="txt_field">
+          <input type="password" name="password1" required>
+          <span></span>
+          <label>Password</label>
+        </div>
+        <div class="txt_field">
+          <input type="password" name="password2" required>
+          <span></span>
+          <label>Password</label>
+        </div>
+        <input type="submit" value="Register">
+        <div class="signup_link">
+          Have you account? <a href="{% url 'users:login' %}">Sign in</a>
+        </div>
+      </form>
+    </div>
+{% endblock %}

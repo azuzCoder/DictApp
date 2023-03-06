@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Folders
+{% endblock %}
+
+{% block style %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block body %}
+    {% include 'navbar.html' %}
+    {% if user.is_authenticated %}
+        {% for folder in folders %}
+            <div class="folder">
+                <h3>
+                    <a href="{% url 'words:folder-ru' folder.pk %}">{{ folder.name }}</a>
+                </h3>
+                <a class="delete-icon" href="{% url 'words:folder-d' folder.pk %}"><img src="{% static 'images/trash.png' %}" alt="" height="32px"></a>
+            </div>
+        {% endfor %}
+        <div class="folder" id="create-button">
+            <button onclick="onClickCreateButton()">
+                <img src="{% static 'images/add.png' %}" class="hover-logo" alt="Adding folder" height="64px">
+            </button>
+         </div>
+        <div class="container-fluid folder" id="create-form">
+             <form action="{% url 'words:folder-cl' %}" method="POST">{% csrf_token %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row justify-content-center">
+                            <input type="text" name="name" id="" placeholder="Folder name">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit">Create</button>
+                <button type="button" onclick="cancelCreateForm()">Cancel</button>
+            </form>
+        </div>
+    {% else %}
+        <h1>Salom</h1>
+    {% endif %}
+    <script src="{% static 'js/script.js' %}"></script>
+{% endblock %}
